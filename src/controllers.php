@@ -19,6 +19,11 @@ $app->get('/about', function() use ($app){
   return "This is a quick & dirty about page.";
 });
 
+$app->get('/add_movies', function( Application $app){
+  return $app['twig']->render('add_movies.html.twig', array());
+});
+
+
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
         return;
