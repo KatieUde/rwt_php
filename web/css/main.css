@@ -53,3 +53,37 @@ footer {
   padding-top: 3em;
   padding-bottom: 1em;
 }
+
+.movie-posters {
+  display: inline-block;
+  padding: 1em;
+}
+
+.movie-deets2 {
+  display: block;
+}
+
+.movie-deets1 {
+  display: block;
+}
+
+.movie-button {
+  text-align: center !important;
+}
+
+#main-movie {
+  float: left;
+  padding-left: 3em;
+  padding-right: 3em;
+  padding-top: 2em;
+}
+
+.movie-header {
+  text-align: center;
+  padding-left: 5em;
+  padding-bottom: 2em;
+}
+
+#movie-list {
+  padding-left: 15em;
+}

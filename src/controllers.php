@@ -17,14 +17,30 @@ $app->get('/', function (Application $app) {
 
 $app->get('/about', function() use ($app){
   return "This is a quick & dirty about page.";
+    phpinfo();
 });
 
-$app->get('/add_movies', function( Application $app){
+$app->get('/add_movies', function (Application $app){
   return $app['twig']->render('add_movies.html.twig', array());
 });
 
-$app->get('/manage_theatre', function( Application $app){
+$app->post('/add_movies', function (Request $request){
+  $db = pg_connect('host=localhost dbname=rwtheatre port=8888')
+
+  $movie_id = pg_escape_string($_POST['id']);
+  $movie_name = pg_escape_string($_POST['name']);
+  $movie_omdb_id = pg_escape_string($_POST['omdb_id']);
+  $movie_omdb_poster = pg_escape_string($_POST['omdb_poster']);
+
+  return $app['twig']->render('movies.html.twig', array());
+});
+
+$app->get('/manage_theatre', function (Application $app){
   return $app['twig']->render('manage_theatre.html.twig', array());
+});
+
+$app->get('/movies', function (Application $app){
+  return $app['twig']->render('movies.html.twig', array());
 });
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
