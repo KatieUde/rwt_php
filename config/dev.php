@@ -10,6 +10,8 @@ require __DIR__.'/prod.php';
 // enable the debug mode
 $app['debug'] = true;
 
+// $dbconn = \pg_connect("host=localhost port=8888 dbname=rwtheatre");
+
 $app->register(new MonologServiceProvider(), array(
     'monolog.logfile' => __DIR__.'/../var/logs/silex_dev.log',
 ));

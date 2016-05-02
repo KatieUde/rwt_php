@@ -1,0 +1,27 @@
+{% block header %}
+
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <!-- <%= link_to "RW Theatre", '#' %> -->
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-list"><a href="/about">About</a></li>
+        <li><a href="#">Movies</a></li>
+        <li><a href="#">Buy Tickets</a></li>
+        <li class="dropdown">
+          <a id="main-drop" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a class="drop-list" href="#">Login</a></li>
+            <li><a class="drop-list" href="/manage_theatre">Manage Theatre</a></li>
+            <li><a class="drop-list" href="#">Sales Dashboard</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a class="drop-list" href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+{% endblock %}

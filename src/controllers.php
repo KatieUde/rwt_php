@@ -23,6 +23,9 @@ $app->get('/add_movies', function( Application $app){
   return $app['twig']->render('add_movies.html.twig', array());
 });
 
+$app->get('/manage_theatre', function( Application $app){
+  return $app['twig']->render('manage_theatre.html.twig', array());
+});
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
