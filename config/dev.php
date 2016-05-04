@@ -15,10 +15,11 @@ $app['debug'] = true;
 
 $app->register(new DoctrineServiceProvider(), array(
     'db.options' => array(
-        'driver' => 'pdo_pgsql',
-        'dbname' => 'rwtheatre',
-        'host' => 'localhost',
-        'port' => '8888',
+      'connectionString' => 'pgsql:host=localhost;port=8888;dbname=rwtheatre',
+        // 'driver' => 'pdo_pgsql',
+        // 'dbname' => 'rwtheatre',
+        // 'host' => 'localhost',
+        // 'port' => '8888',
     ),
 ));
 
