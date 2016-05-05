@@ -25,7 +25,7 @@ $app->get('/add_movies', function (Application $app){
 
 $app->post('/add_movies', function (Request $request) use ($app) {
     $movie = array(
-      'name' => $request->get('name'),
+      'movie_name' => $request->get('movie_name'),
       'omdb_id' => $request->get('omdb_id'),
       'omdb_poster' => $request->get('omdb_poster'),
       'youtube' => $request->get('youtube'),
@@ -33,7 +33,7 @@ $app->post('/add_movies', function (Request $request) use ($app) {
       'upcoming' => $request->get('upcoming'),
       'rating' => $request->get('rating')
     );
-    $app['db']->insert('movie', $movie);
+    $app['db']->insert('movies', $movie);
 
         // $movie_id = $_POST['id'];
         // $name = $_POST['name'];

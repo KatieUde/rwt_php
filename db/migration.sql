@@ -2,7 +2,7 @@ CREATE DATABASE rwtheatre;
 
 \c rwtheatre
 
-CREATE TABLE movies (id SERIAL PRIMARY KEY, name TEXT, omdb_id VARCHAR (20), omdb_poster TEXT, youtube TEXT, playing_now BOOLEAN, upcoming BOOLEAN, rating VARCHAR (6));
+CREATE TABLE movies (id SERIAL PRIMARY KEY, movie_name TEXT, omdb_id VARCHAR (20), omdb_poster TEXT, youtube TEXT, playing_now BOOLEAN, upcoming BOOLEAN, rating VARCHAR (6));
 
 CREATE TABLE ticket_details (id SERIAL PRIMARY KEY, ticket_style TEXT, ticket_cost INTEGER);
 

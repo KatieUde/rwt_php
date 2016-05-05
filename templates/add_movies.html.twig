@@ -5,11 +5,13 @@
     <h3>Add Movies Playing</h3>
   </div>
 
+  <!-- FORM FOR NEW MOVIE CREATION -->
+
   <form class="form-horizontal" action="/add_movies" method="post">
     <div class="form-group">
       <label for="movie_title" class="col-sm-2 col-sm-offset-2 control-label">Movie Title:</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" name="name" value=""></input>
+          <input type="text" class="form-control" name="movie_name" value=""></input>
         </div>
       </div>
     <div class="form-group">
@@ -19,41 +21,41 @@
         </div>
       </div>
     <div class="form-group">
-      <label for="rating" class="col-sm-2 col-sm-offset-2 control-label">Now Playing:</label>
+      <label for="now_playing" class="col-sm-2 col-sm-offset-2 control-label">Now Playing:</label>
         <div class="col-sm-4">
           <label class="radio-inline">
-            <input type="radio" class="" name="playing now" value="true">Yes</input>
+            <input type="radio" class="" name="playing_now" value="1">Yes</input>
           </label>
           <label class="radio-inline">
-            <input type="radio" class="" name="playing now" value="false">No</input>
+            <input type="radio" class="" name="playing_now" value="0">No</input>
           </label>
         </div>
       </div>
       <div class="form-group">
-        <label for="rating" class="col-sm-2 col-sm-offset-2 control-label">Coming Soon:</label>
+        <label for="coming_soon" class="col-sm-2 col-sm-offset-2 control-label">Coming Soon:</label>
           <div class="col-sm-4">
             <label class="radio-inline">
-              <input type="radio" class="" name="coming soon" value="true">Yes</input>
+              <input type="radio" class="" name="upcoming" value="1">Yes</input>
             </label>
             <label class="radio-inline">
-              <input type="radio" class="" name="coming soon" value="false">No</input>
+              <input type="radio" class="" name="upcoming" value="0">No</input>
             </label>
           </div>
         </div>
       <div class="form-group">
-        <label for="rating" class="col-sm-2 col-sm-offset-2 control-label">Movie ID:</label>
+        <label for="movie_id" class="col-sm-2 col-sm-offset-2 control-label">Movie ID:</label>
           <div class="col-sm-4">
             <input type="text" class="form-control" name="omdb_id" value=""></input>
           </div>
         </div>
       <div class="form-group">
-        <label for="rating" class="col-sm-2 col-sm-offset-2 control-label">Movie Poster:</label>
+        <label for="movie_poster" class="col-sm-2 col-sm-offset-2 control-label">Movie Poster:</label>
           <div class="col-sm-4">
             <input type="text" class="form-control" name="omdb_poster" value=""></input>
           </div>
         </div>
       <div class="form-group">
-        <label for="rating" class="col-sm-2 col-sm-offset-2 control-label">Official Trailer:</label>
+        <label for="official_trailer" class="col-sm-2 col-sm-offset-2 control-label">Official Trailer:</label>
           <div class="col-sm-4">
             <input type="text" class="form-control" name="youtube" value=""></input>
           </div>
@@ -62,5 +64,39 @@
         <button class="btn btn-default" type="submit" name="submit" value="submit">Submit</button>
       </div>
     </form>
-    
+
+    <br>
+    <br>
+    <br>
+
+    <!-- EDIT EXISTING MOVIES -->
+
+    <div class="movie-header">
+      <h3>Edit Movies Playing</h3>
+    </div>
+
+    <div class="col-md-7 col-sm-offset-2" id="movie-list">
+      <table class="table">
+        <tbody>
+          <tr>
+            <th class="table_head">Movie Title</th>
+            <th class="table_head">Rated</th>
+            <th class="table_head">Update</th>
+            <th class="table_head">Remove</th>
+            </tr>
+
+            <tr>
+              <td class="table_body">{}</td>
+              <td class="table_body"><%= movie.rating%></td>
+                <td class="table_body">
+                  <%= link_to 'Edit', edit_movie_path(movie) %>
+                </td>
+                <td class="table_body">
+                  <%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Do you really want to remove this movie?' } %>
+                </td>
+
+            </table>
+          </div>
+
+
 {% endblock %}
