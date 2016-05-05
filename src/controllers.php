@@ -19,8 +19,24 @@ $app->get('/about', function (Application $app){
   return $app['twig']->render('movies.html.twig', array());
 });
 
-$app->get('/add_movies', function (Application $app){
-  return $app['twig']->render('add_movies.html.twig', array());
+$app->get('/add_movies', function (Request $request) use ($app){
+
+  // 'movies' => $app['db']->fetchAll('SELECT * FROM movies');
+  $data = array();
+  // foreach ($movies as $movie) {
+  //   $data[] = array(
+  //     'id' => $movie->getID(),
+  //     'movie_name' => $movie->getMovieName(),
+  //     'omdb_id' => $movie->getOmdbId(),
+  //     'omdb_poster' => $movie->getOmdbPoster(),
+  //     'youtube' => $movie->getYoutube(),
+  //     'playing_now' => $movie->getPlayingNow(),
+  //     'upcoming' => $movie->getUpcoming(),
+  //     'rating' => $movie->getRating(),
+    // );
+  // }
+
+  return $app['twig']->render('add_movies.html.twig', array('movies' => $app['db']->fetchAll('SELECT * FROM movies')));
 });
 
 $app->post('/add_movies', function (Request $request) use ($app) {
@@ -35,18 +51,19 @@ $app->post('/add_movies', function (Request $request) use ($app) {
     );
     $app['db']->insert('movies', $movie);
 
-        // $movie_id = $_POST['id'];
-        // $name = $_POST['name'];
-        // $omdb_id = $_POST['omdb_id'];
-        // $omdb_poster = $_POST['omdb_poster'];
-        // $youtube = $_POST['youtube'];
-        // $playing_now= $_POST['playing_now'];
-        // $upcoming = $_POST['upcoming'];
-        // $rating = $_POST['rating'];
-        // $movie = new Movie($movie_id, $name, $omdb_id, $omdb_poster, $youtube, $playing_now, $upcoming, $rating);
-        // $movie->save();
-
   return $app['twig']->render('movies.html.twig', array('movie' => $movie));
+});
+
+$app->get('/edit_movies', function (Application $app){
+  return $app['twig']->render('edit_movies.html.twig', array());
+});
+
+$app->get('/edit_movies/movie.id', function (Application $app){
+  return $app['twig']->render('edit_movies.html.twig', array());
+});
+
+$app->get('/delete_movies', function (Application $app){
+
 });
 
 $app->get('/manage_theatre', function (Application $app){

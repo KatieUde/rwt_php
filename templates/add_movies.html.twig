@@ -84,17 +84,17 @@
             <th class="table_head">Update</th>
             <th class="table_head">Remove</th>
             </tr>
-
+              {% for movie in movies %}
             <tr>
-              <td class="table_body">{}</td>
-              <td class="table_body"><%= movie.rating%></td>
+              <td class="table_body">{{movie.movie_name}}</td>
+              <td class="table_body">{{movie.rating}}</td>
                 <td class="table_body">
-                  <%= link_to 'Edit', edit_movie_path(movie) %>
+                  <a href="{{ '/edit_movies' }}">Edit</a>
                 </td>
                 <td class="table_body">
-                  <%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Do you really want to remove this movie?' } %>
+                  <a href=">{{ '/delete_mvoies' }}">Delete</a>
                 </td>
-
+                {% endfor %}
             </table>
           </div>
 
