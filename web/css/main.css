@@ -87,3 +87,31 @@ footer {
 #movie-list {
   padding-left: 15em;
 }
+
+#auditorium-list {
+  padding-left: 15em;
+}
+
+#ticket-type-list {
+  padding-left: 15em;
+}
+
+#new-auditorium-form {
+  padding-bottom: 3em;
+}
+
+.auditorium-header {
+  text-align: center;
+  padding-left: 5em;
+  padding-bottom: 2em;
+}
+
+#new-ticket-form {
+  padding-bottom: 2em;
+}
+
+.ticket-type-header {
+  text-align: center;
+  padding-left: 5em;
+  padding-bottom: 2em;
+}

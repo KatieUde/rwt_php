@@ -21,7 +21,6 @@ $app->get('/about', function (Application $app){
 
 $app->get('/add_movies', function (Request $request) use ($app){
 
-  // 'movies' => $app['db']->fetchAll('SELECT * FROM movies');
   $data = array();
   // foreach ($movies as $movie) {
   //   $data[] = array(
@@ -54,12 +53,11 @@ $app->post('/add_movies', function (Request $request) use ($app) {
   return $app['twig']->render('movies.html.twig', array('movie' => $movie));
 });
 
-$app->get('/edit_movies', function (Application $app){
-  return $app['twig']->render('edit_movies.html.twig', array());
-});
 
-$app->get('/edit_movies/movie.id', function (Application $app){
-  return $app['twig']->render('edit_movies.html.twig', array());
+$app->get('/edit_movie/id', function (Application $app){
+
+
+  return $app['twig']->render('edit_movie.html.twig', array());
 });
 
 $app->get('/delete_movies', function (Application $app){
@@ -74,8 +72,32 @@ $app->get('/movies', function (Application $app){
   return $app['twig']->render('movies.html.twig', array());
 });
 
-$app->get('/auditorium', function (Application $app){
-  return $app['twig']->render('auditorium.html.twig', array());
+$app->get('/viewing_rooms', function (Application $app){
+  return $app['twig']->render('viewing_rooms.html.twig', array('viewing_rooms' => $app['db']->fetchAll('SELECT * FROM viewing_rooms')));
+});
+
+$app->post('/viewing_rooms', function (Request $request) use ($app) {
+    $viewing_room = array(
+      'room_number' => $request->get('room_number'),
+      'seat_max' => $request->get('seat_max'),
+    );
+    $app['db']->insert('viewing_rooms', $viewing_room);
+
+  return $app['twig']->render('manage_theatre.html.twig', array('viewing_room' => $viewing_room));
+});
+
+$app->get('/ticket_details', function (Application $app){
+  return $app['twig']->render('ticket_details.html.twig', array('ticket_details' => $app['db']->fetchAll('SELECT * FROM ticket_details')));
+});
+
+$app->post('/ticket_details', function (Request $request) use ($app) {
+    $ticket_detail = array(
+      'ticket_style' => $request->get('ticket_style'),
+      'ticket_cost' => $request->get('ticket_cost'),
+    );
+    $app['db']->insert('ticket_details', $ticket_detail);
+
+  return $app['twig']->render('manage_theatre.html.twig', array('ticket_detail' => $ticket_detail));
 });
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {

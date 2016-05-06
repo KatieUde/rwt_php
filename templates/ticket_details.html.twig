@@ -1,0 +1,62 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+  <div class="ticket-type-header">
+    <h3>Ticket Details Set-up</h3>
+  </div>
+    <br>
+
+  <!-- FORM FOR NEW TICKET TYPE CREATION -->
+  <div id="new-ticket-form">
+    <form class="form-horizontal" action="/ticket_details" method="post">
+      <div class="form-group">
+        <label for="ticket_type" class="col-sm-2 col-sm-offset-2 control-label">Ticket Type:</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" name="ticket_style" value=""></input>
+          </div>
+        </div>
+      <div class="form-group">
+        <label for="ticket_price" class="col-sm-2 col-sm-offset-2 control-label">Ticket Price:</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" name="ticket_cost" value=""></input>
+          </div>
+        </div>
+      <div class="form-group">
+        <div class="col-sm-offset-6 col-sm-5">
+          <button class="btn btn-default" type="submit" name="submit" value="submit">Create Ticket Detail</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- EDIT TICKET TYPES CREATED -->
+  <div class="ticket-type-header">
+    <h3>Edit Ticket Details</h3>
+  </div>
+
+  <div class="col-md-7 col-sm-offset-2" id="ticket-type-list">
+    <table class="table">
+      <tbody>
+        <tr>
+          <th class="table_head">Ticket Type</th>
+          <th class="table_head">Ticket Price</th>
+          <th class="table_head">Update</th>
+          <th class="table_head">Remove</th>
+          </tr>
+            {% for ticket_detail in ticket_details %}
+          <tr>
+            <td class="table_body">{{ticket_detail.ticket_style}}</td>
+            <td class="table_body">{{ticket_detail.ticket_cost}}</td>
+              <td class="table_body">
+                <a href="{{ '/edit_ticket_details' }}">Edit</a>
+              </td>
+              <td class="table_body">
+                <a href=">{{ '/delete_ticket_details' }}">Delete</a>
+              </td>
+              {% endfor %}
+          </table>
+        </div>
+
+
+
+{% endblock %}
