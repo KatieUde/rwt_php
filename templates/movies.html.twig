@@ -9,7 +9,9 @@
         <article class="main-page-movies">
           {% for movie in movies %}
             {% if movie.playing_now == true %}
-              <div class="movie-posters"><img src="{{movie.omdb_poster}}"></div>
+              <div class="movie-posters">
+                <a href="/movie/{{movie.id}}"><img src="{{movie.omdb_poster}}"></a>
+              </div>
               {% endif %}
             {% endfor %}
 
@@ -25,5 +27,15 @@
         </article>
       </section>
     </div>
+
+    <script>
+
+      $(document).ready(function(){
+
+        findMovie()
+
+      });
+
+    </script>
 
 {% endblock %}

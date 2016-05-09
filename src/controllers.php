@@ -57,6 +57,13 @@ $app->post('/movies', function (Request $request) use ($app) {
   return $app['twig']->render('add_movies.html.twig', array('movies' => $app['db']->fetchAll('SELECT * FROM movies')));
 });
 
+$app->get('/movie/{id}', function ($id) use ($app){
+  $sql = "SELECT * FROM movies WHERE id = ?";
+  $movie = $app['db']->fetchAssoc($sql, array((int) $id));
+
+  return $app['twig']->render('movie_detail.html.twig', array('movie' => $movie));
+});
+
 
 $app->get('/movie/{id}/edit', function ($id) use ($app){
   $sql = "SELECT * FROM movies WHERE id = ?";
