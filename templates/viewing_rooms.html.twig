@@ -48,10 +48,10 @@
             <td class="table_body">{{viewing_room.room_number}}</td>
             <td class="table_body">{{viewing_room.seat_max}}</td>
               <td class="table_body">
-                <a href="{{ '/edit_viewing_rooms' }}">Edit</a>
+                <a href="/viewing_room/{{viewing_room.id}}/edit">Edit</a>
               </td>
               <td class="table_body">
-                <a href=">{{ '/delete_viewing_rooms' }}">Delete</a>
+                <a href="/viewing_room/{{viewing_room.id}}/delete">Delete</a>
               </td>
               {% endfor %}
           </table>

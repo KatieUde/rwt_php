@@ -16,10 +16,14 @@ $app->get('/', function (Application $app) {
 
 
 $app->get('/about', function (Application $app){
-  return $app['twig']->render('movies.html.twig', array());
+
 });
 
-$app->get('/add_movies', function (Request $request) use ($app){
+$app->get('/movie_list', function (Request $request) use ($app){
+  return $app['twig']->render('movies.html.twig', array('movies' => $app['db']->fetchAll('SELECT * FROM movies')));
+});
+
+$app->get('/movies', function (Request $request) use ($app){
 
   $data = array();
   // foreach ($movies as $movie) {
@@ -38,7 +42,7 @@ $app->get('/add_movies', function (Request $request) use ($app){
   return $app['twig']->render('add_movies.html.twig', array('movies' => $app['db']->fetchAll('SELECT * FROM movies')));
 });
 
-$app->post('/add_movies', function (Request $request) use ($app) {
+$app->post('/movies', function (Request $request) use ($app) {
     $movie = array(
       'movie_name' => $request->get('movie_name'),
       'omdb_id' => $request->get('omdb_id'),
@@ -50,19 +54,42 @@ $app->post('/add_movies', function (Request $request) use ($app) {
     );
     $app['db']->insert('movies', $movie);
 
-  return $app['twig']->render('movies.html.twig', array('movie' => $movie));
+  return $app['twig']->render('add_movies.html.twig', array('movies' => $app['db']->fetchAll('SELECT * FROM movies')));
 });
 
 
-$app->get('/edit_movie/id', function (Application $app){
+$app->get('/movie/{id}/edit', function ($id) use ($app){
+  $sql = "SELECT * FROM movies WHERE id = ?";
+  $movie = $app['db']->fetchAssoc($sql, array((int) $id));
 
+  // $sql= "UPDATE movies WHERE id = ?";
+  // $movie = $app['db']->update($sql, array((int) $id));
 
-  return $app['twig']->render('edit_movie.html.twig', array());
+  return $app['twig']->render('edit_movie.html.twig', array('movie' => $movie));
 });
 
-$app->get('/delete_movies', function (Application $app){
+$app->post('/movie/{id}/edit', function (Request $request) use ($app){
+  $movie = array(
+    'movie_name' => $request->get('movie_name'),
+    'omdb_id' => $request->get('omdb_id'),
+    'omdb_poster' => $request->get('omdb_poster'),
+    'youtube' => $request->get('youtube'),
+    'playing_now' => $request->get('playing_now'),
+    'upcoming' => $request->get('upcoming'),
+    'rating' => $request->get('rating')
+  );
+  $app['db']->insert('movie', $movie);
 
+  return $app['twig']->render('add_movies.html.twig', array('movie' => $movie));
 });
+
+$app->get('/movie/{id}/delete', function ($id) use ($app){
+  $sql = "DELETE FROM movies WHERE id = $id";
+  $movie = $app['db']->query($sql);
+
+  return $app['twig']->render('add_movies.html.twig', array('movies' => $app['db']->fetchAll('SELECT * FROM movies')));
+});
+
 
 $app->get('/manage_theatre', function (Application $app){
   return $app['twig']->render('manage_theatre.html.twig', array());
@@ -86,6 +113,10 @@ $app->post('/viewing_rooms', function (Request $request) use ($app) {
   return $app['twig']->render('manage_theatre.html.twig', array('viewing_room' => $viewing_room));
 });
 
+$app->get('/viewing_room/{id}/edit', function (Application $app){
+  return $app['twig']->render('edit_movie.html.twig', array('viewing_room_id' => $app['db']->fetchAll('SELECT viewing_room.id FROM viewing_rooms')));
+});
+
 $app->get('/ticket_details', function (Application $app){
   return $app['twig']->render('ticket_details.html.twig', array('ticket_details' => $app['db']->fetchAll('SELECT * FROM ticket_details')));
 });
@@ -98,6 +129,14 @@ $app->post('/ticket_details', function (Request $request) use ($app) {
     $app['db']->insert('ticket_details', $ticket_detail);
 
   return $app['twig']->render('manage_theatre.html.twig', array('ticket_detail' => $ticket_detail));
+});
+
+$app->get('/ticket_detail/{id}/edit', function (Application $app){
+  return $app['twig']->render('edit_ticket_detail.html.twig', array());
+});
+
+$app->get('/movie_times', function (Application $app){
+  return $app['twig']->render('viewings.html.twig', array('viewing_rooms' => $app['db']->fetchAll('SELECT * FROM viewing_rooms')));
 });
 
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {

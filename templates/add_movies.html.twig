@@ -7,7 +7,7 @@
 
   <!-- FORM FOR NEW MOVIE CREATION -->
 
-  <form class="form-horizontal" action="/add_movies" method="post">
+  <form class="form-horizontal" action="/movies" method="post">
     <div class="form-group">
       <label for="movie_title" class="col-sm-2 col-sm-offset-2 control-label">Movie Title:</label>
         <div class="col-sm-4">
@@ -89,10 +89,10 @@
               <td class="table_body">{{movie.movie_name}}</td>
               <td class="table_body">{{movie.rating}}</td>
                 <td class="table_body">
-                  <a href="/edit_movie/{{movie.id}}">Edit</a>
+                  <a href="/movie/{{movie.id}}/edit">Edit</a>
                 </td>
                 <td class="table_body">
-                  <a href="/delete_movies/{{movie.id}}">Delete</a>
+                  <a href="/movie/{{movie.id}}/delete">Delete</a>
                 </td>
                 {% endfor %}
             </table>
