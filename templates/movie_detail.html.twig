@@ -16,30 +16,44 @@
       </div>
         <br>
       <div class="movie-deets2">
-        <!-- <% unless @movie_data["Plot"] == nil || @movie_data["Plot"] == "" %> -->
           <h4>Plot:</h4>
+          {% if "{{array['Title']}}" %}
             <p id="plot"></p>
+            {% else %}
+            <p>Plot information has not been released at this time.</p>
+          {% endif %}
           </div>
         <div class="movie-deets1">
-          <!-- <% unless @movie_data["Genre"] == nil || @movie_data["Genre"] == "" %> -->
-          <h5>Genre:</h5>
-            <p><%=@movie_data["Genre"]%></p>
+          <h4>Genre:</h4>
+          {% if "{{array['Genre']}}" %}
+            <p id="genre"></p>
+            {% else %}
+            <p>Genre information has not been released at this time.</p>
+          {% endif %}
           </div>
         <div class="movie-deets1">
           <!-- <% unless @movie_data["Rated"] == nil || @movie_data["Rated"] == "" %> -->
-          <h5>Rated:</h5>
-            <p><%=@movie_data["Rated"]%></p>
+          <h4>Rated:</h4>
+          {% if "{{array['Rated']}}" %}
+            <p id="rated"></p>
+            {% else %}
+            <p>Rating information has not been released at this time.</p>
+          {% endif %}
           </div>
         <div class="movie-deets1">
           <!-- <% unless @movie_data["Runtime"] == nil || @movie_data["Runtime"] == "" %> -->
-            <h5>Runtime:</h5>
-              <p><%=@movie_data["Runtime"]%></p>
+            <h4>Runtime:</h4>
+            {% if "{{array['Runtime']}}" %}
+              <p id="runtime"></p>
+              {% else %}
+              <p>Runtime information has not been released at this time.</p>
+            {% endif %}
             </div>
           <div class="movie-deets1">
-            <h5>Showtimes:</h5>
+            <h4>Showtimes:</h4>
               <!-- <% @movie.viewings.each do |viewing| %> -->
               <ul>
-                <li><%= viewing.view_time unless viewing.view_time.nil? %></li>
+                <li></li>
               </ul>
             </div>
 
@@ -54,11 +68,10 @@
         });
 
         function findMovie() {
-          $(".movie-deets2").click(function(){
             var array = [];
             var getMovieDetails = {
               type: 'get',
-              url: 'http://www.omdbapi.com/?i={{movie.omdb_id}}',
+              url: 'http://www.omdbapi.com/?i={{movie.omdb_id}}&plot=full',
               success: function(data) {
                 console.log("Pulled from API");
                 array = data;
@@ -67,14 +80,16 @@
                 // console.log(data[2]);
                 // var movieInfo = data;
                 $("#plot").append(array["Plot"]);
+                $("#genre").append(array["Genre"]);
+                $("#rated").append(array["Rated"]);
+                $("#runtime").append(array["Runtime"]);
               },
               error: function(error) {
                 console.log("Something did not happen as intended");
               }
             }
             $.ajax(getMovieDetails);
-          });
-        };
+          };
 
         </script>
 

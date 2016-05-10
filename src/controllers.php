@@ -87,7 +87,7 @@ $app->post('/movie/{id}/edit', function (Request $request) use ($app){
     'upcoming' => $request->get('upcoming'),
     'rating' => $request->get('rating')
   );
-  $app['db']->insert('movie', $movie);
+  $app['db']->update('movie', $movie);
 
   return $app['twig']->render('add_movies.html.twig', array('movie' => $movie));
 });
