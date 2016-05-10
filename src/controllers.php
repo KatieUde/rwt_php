@@ -20,6 +20,8 @@ $app->get('/about', function (Application $app){
 });
 
 $app->get('/movie_list', function (Request $request) use ($app){
+  $data = array();
+
   return $app['twig']->render('movies.html.twig', array('movies' => $app['db']->fetchAll('SELECT * FROM movies')));
 });
 
@@ -104,6 +106,10 @@ $app->get('/manage_theatre', function (Application $app){
 
 $app->get('/movies', function (Application $app){
   return $app['twig']->render('movies.html.twig', array());
+});
+
+$app->get('/tickets', function (Application $app){
+  return $app['twig']->render('buy_tickets.html.twig', array());
 });
 
 $app->get('/viewing_rooms', function (Application $app){

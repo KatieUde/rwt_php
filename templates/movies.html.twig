@@ -12,30 +12,22 @@
               <div class="movie-posters">
                 <a href="/movie/{{movie.id}}"><img src="{{movie.omdb_poster}}"></a>
               </div>
-              {% endif %}
-            {% endfor %}
-
+            {% endif %}
+          {% endfor %}
         </article>
 
     <h2>Coming Soon</h2>
         <article class="main-page-movies">
           {% for movie in movies %}
             {% if movie.playing_now == false %}
-              <div class="movie-posters"><img src="{{movie.omdb_poster}}"></div>
-                {% endif %}
-            {% endfor %}
+              <div class="movie-posters">
+                <a href="/movie/{{movie.id}}"><img src="{{movie.omdb_poster}}"></a>
+              </div>
+            {% endif %}
+          {% endfor %}
         </article>
       </section>
     </div>
 
-    <script>
-
-      $(document).ready(function(){
-
-        findMovie()
-
-      });
-
-    </script>
 
 {% endblock %}

@@ -2,4 +2,81 @@
 
 {% block content %}
 
+
+  <div class="container">
+    <h2> {{movie.movie_name}} </h2>
+      <div id="main-movie">
+        <img src="{{movie.omdb_poster}}" >
+        <br>
+        <div class="movie-button"><a class="btn btn-info" href="{{movie.youtube}}" role="button">Watch Trailer</a></div>
+        <br>
+          {% if movie.playing_now == true %}
+            <div class="movie-button"><a class="btn btn-info" href="/tickets">Buy Tickets</a></div>
+          {% endif %}
+      </div>
+        <br>
+      <div class="movie-deets2">
+        <!-- <% unless @movie_data["Plot"] == nil || @movie_data["Plot"] == "" %> -->
+          <h4>Plot:</h4>
+            <p id="plot"></p>
+          </div>
+        <div class="movie-deets1">
+          <!-- <% unless @movie_data["Genre"] == nil || @movie_data["Genre"] == "" %> -->
+          <h5>Genre:</h5>
+            <p><%=@movie_data["Genre"]%></p>
+          </div>
+        <div class="movie-deets1">
+          <!-- <% unless @movie_data["Rated"] == nil || @movie_data["Rated"] == "" %> -->
+          <h5>Rated:</h5>
+            <p><%=@movie_data["Rated"]%></p>
+          </div>
+        <div class="movie-deets1">
+          <!-- <% unless @movie_data["Runtime"] == nil || @movie_data["Runtime"] == "" %> -->
+            <h5>Runtime:</h5>
+              <p><%=@movie_data["Runtime"]%></p>
+            </div>
+          <div class="movie-deets1">
+            <h5>Showtimes:</h5>
+              <!-- <% @movie.viewings.each do |viewing| %> -->
+              <ul>
+                <li><%= viewing.view_time unless viewing.view_time.nil? %></li>
+              </ul>
+            </div>
+
+        <script>
+
+
+        $(document).ready(function(){
+
+
+          findMovie()
+
+        });
+
+        function findMovie() {
+          $(".movie-deets2").click(function(){
+            var array = [];
+            var getMovieDetails = {
+              type: 'get',
+              url: 'http://www.omdbapi.com/?i={{movie.omdb_id}}',
+              success: function(data) {
+                console.log("Pulled from API");
+                array = data;
+                console.log(array);
+                console.log(array["Title"]);
+                // console.log(data[2]);
+                // var movieInfo = data;
+                $("#plot").append(array["Plot"]);
+              },
+              error: function(error) {
+                console.log("Something did not happen as intended");
+              }
+            }
+            $.ajax(getMovieDetails);
+          });
+        };
+
+        </script>
+
+
 {% endblock %}
