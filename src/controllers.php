@@ -1,8 +1,8 @@
 <?php
 
-
 use Silex\Application;
 use helpers\TicketPurchase;
+use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,6 +11,29 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 //Request::setTrustedProxies(array('127.0.0.1'));
 
+class ControllerProvider implements ControllerProviderInterface {
+  private $app;
+
+  public function connect(Application $app) {
+
+    $this->application = $app;
+
+    $controllers = $app['controllers_factory'];
+
+    $controllers
+        ->get('/', [$this, 'homepage'])
+        ->bind('homepage');
+
+    return $controllers;
+  }
+
+  public function homepage(Application $app) {
+      return $app['twig']->render('index.html.twig', array());
+  }
+
+}
+
+  
   $app->get('/', function (Application $app) {
       return $app['twig']->render('index.html.twig', array());
   })
@@ -18,7 +41,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
   $app->get('/about', function (Application $app){
-
+      return $app['twig']->render('about.html.twig', array());
   });
 
   $app->get('/movie_list', function (Request $request) use ($app){

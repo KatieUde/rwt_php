@@ -1,6 +1,6 @@
 <?php
 
-namespace helpers\TicketPurchase;
+namespace helpers;
 
 class TicketPurchase {
 
