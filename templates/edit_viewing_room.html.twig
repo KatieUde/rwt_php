@@ -3,34 +3,33 @@
 {% block content %}
 
 <div class="auditorium-header">
-  <h3>Update Details for Auditorium {{viewing_room.room_number}}</h3>
+  <h3>Update Details for Auditorium {{viewing_room.room_number}} </h3>
 </div>
 <br>
 <br>
 
 <div>
-  <form class="form-horizontal" action="/viewing_rooms" method="post">
-    <div class="form-control">
-      <input type="hidden" name="id" value="id">
+  <form class="form-horizontal" action="/viewing_rooms/{id}/edit" method="post">
+    <div>
+      <input type="hidden" name="id" value="{{viewing_room.id}}"></input>
     </div>
   <div class="form-group">
     <label for="auditorium" class="col-sm-2 col-sm-offset-2 control-label">Room Number:</label>
       <div class="col-sm-5">
-        <input type="text" class="form-control" name="room_number" value=""></input>
+        <input type="text" class="form-control" name="room_number" value="{{viewing_room.room_number}}"></input>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :seating_capacity, class: "col-sm-2 col-sm-offset-2 control-label" %>
-    <div class="col-sm-5">
-      <%= f.text_field :seat_max, class: "form-control" %>
+    <label for="seating_capacity" class="col-sm-2 col-sm-offset-2 control-label">Seating Capacity:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" name="seat_max" value="{{viewing_room.seat_max}}"></input>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-6 col-sm-5">
-      <%= f.submit class: "btn btn-default" %>
+      <button class="btn btn-default" type="submit" name="submit" value="submit">Update Viewing Room</button>
     </div>
   </div>
-<% end %>
 </div>
 
 
