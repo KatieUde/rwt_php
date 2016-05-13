@@ -28,6 +28,8 @@ $app->post('/tickets', 'RwTheatre\Controller\TicketController::postTicketAction'
 $app->get('/ticket_details', 'RwTheatre\Controller\TicketController::getTicketDetailsAction');
 $app->post('/ticket_details', 'RwTheatre\Controller\TicketController::addTicketDetailsAction');
 $app->get('/ticket_detail/{id}/edit', 'RwTheatre\Controller\TicketController::findTicketDetailsAction');
+$app->post('/ticket_detail/{id}/edit', 'RwTheatre\Controller\TicketController::editTicketDetailsAction');
+$app->get('/ticket_detail/{id}/delete', 'RwTheatre\Controller\TicketController::deleteTicketDetailsAction');
 
 $app->get('/viewing_rooms', 'RwTheatre\Controller\ViewingController::getViewingRoomAction');
 $app->post('/viewing_rooms', 'RwTheatre\Controller\ViewingController::addViewingRoomAction');

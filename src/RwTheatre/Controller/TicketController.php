@@ -44,7 +44,31 @@ class TicketController {
       $sql = "SELECT * FROM ticket_details WHERE id = ?";
       $ticket_detail = $app['db']->fetchAssoc($sql, array((int) $id));
 
-    return $app['twig']->render('edit_ticket_detail.html.twig', array());
+    return $app['twig']->render('edit_ticket_detail.html.twig', array('ticket_detail' => $ticket_detail));
   }
+
+    public function editTicketDetailsAction(Request $request, Application $app, $id) {
+      $sql = "SELECT * FROM ticket_details WHERE id = ?";
+      $app['db']->fetchAssoc($sql, array((int) $id));
+
+        $id = $request->get('id');
+        $ticket_style = $request->get('ticket_style');
+        $ticket_cost = $request->get('ticket_cost');
+        var_dump($ticket_style);
+        var_dump($ticket_cost);
+
+      $sql = "UPDATE ticket_details SET ticket_style = $ticket_style, ticket_cost = $ticket_cost WHERE id = $id";
+      $app['db']->executeUpdate($sql);
+
+    return $app['twig']->render('ticket_details.html.twig', array('ticket_details' => $app['db']->fetchAll('SELECT * FROM ticket_details')));
+  }
+
+    public function deleteTicketDetailsAction(Request $request, Application $app, $id) {
+      $sql = "DELETE FROM ticket_details WHERE id = $id";
+      $ticket_detail = $app['db']->query($sql);
+
+    return $app['twig']->render('ticket_details.html.twig', array('ticket_details' => $app['db']->fetchAll('SELECT * FROM ticket_details')));
+  }
+
 
 }
