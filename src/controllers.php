@@ -11,16 +11,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 // Request::setTrustedProxies(array('127.0.0.1'));
 
-  $app->get('/movie_list', function (Request $request) use ($app) {
-    $data = array();
-
-    return $app['twig']->render('movies.html.twig', array('movies' => $app['db']->fetchAll('SELECT * FROM movies')));
-  });
-
-  $app->get('/movie_times', function (Application $app) {
-    return $app['twig']->render('viewings.html.twig', array('viewing_rooms' => $app['db']->fetchAll('SELECT * FROM viewing_rooms')));
-  });
-
   $app->error(function (\Exception $e, Request $request, $code) use ($app) {
       if ($app['debug']) {
           return;

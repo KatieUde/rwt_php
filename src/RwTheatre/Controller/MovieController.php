@@ -66,7 +66,12 @@ class MovieController {
       $sql = "DELETE FROM movies WHERE id = $id";
       $movie = $app['db']->query($sql);
 
-      return $app['twig']->render('add_movies.html.twig', array('movies' => $app['db']->fetchAll('SELECT * FROM movies')));
+    return $app['twig']->render('add_movies.html.twig', array('movies' => $app['db']->fetchAll('SELECT * FROM movies')));
+    }
+
+    public function getMovieListAction (Request $request, Application $app) {
+
+    return $app['twig']->render('movies.html.twig', array('movies' => $app['db']->fetchAll('SELECT * FROM movies')));
     }
 
 }

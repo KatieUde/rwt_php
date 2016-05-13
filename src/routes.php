@@ -16,9 +16,11 @@ $app->get('/manage_theatre', 'RwTheatre\Controller\GeneralController::manageThea
 $app->get('/movies', 'RwTheatre\Controller\MovieController::getMoviesAction');
 $app->post('/movies', 'RwTheatre\Controller\MovieController::addMoviesAction');
 $app->get('/movie/{id}', 'RwTheatre\Controller\MovieController::findMovieAction');
+$app->get('/movie_list', 'RwTheatre\Controller\MovieController::getMovieListAction');
 $app->get('/movie/{id}/edit', 'RwTheatre\Controller\MovieController::editMovieAction');
 $app->post('/movie/{id}/edit', 'RwTheatre\Controller\MovieController::postEditMovieAction');
 $app->delete('/movie/{id}/delete', 'RwTheatre\Controller\MovieController::deleteMovieAction');
+
 
 $app->get('/tickets', 'RwTheatre\Controller\TicketController::getTicketAction');
 $app->post('/tickets', 'RwTheatre\Controller\TicketController::postTicketAction');
@@ -30,3 +32,7 @@ $app->get('/ticket_detail/{id}/edit', 'RwTheatre\Controller\TicketController::fi
 $app->get('/viewing_rooms', 'RwTheatre\Controller\ViewingController::getViewingRoomAction');
 $app->post('/viewing_rooms', 'RwTheatre\Controller\ViewingController::addViewingRoomAction');
 $app->get('/viewing_room/{id}/edit', 'RwTheatre\Controller\ViewingController::findViewingRoomAction');
+$app->post('/viewing_room/{id}/edit', 'RwTheatre\Controller\ViewingController::editViewingRoomAction');
+$app->get('/viewing_room/{id}/delete', 'RwTheatre\Controller\ViewingController::deleteViewingRoomAction');
+
+$app->get('/movie_times', 'RwTheatre\Controller\ViewingController::getViewingsAction');
