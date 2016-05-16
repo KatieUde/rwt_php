@@ -115,3 +115,13 @@ footer {
   padding-left: 5em;
   padding-bottom: 2em;
 }
+
+#ticket-purchase-form {
+  margin-left: 5em;
+  padding-left: 42em;
+}
+
+#ticket-purchase-header {
+  text-align: center;
+  padding-bottom: 2em;
+}

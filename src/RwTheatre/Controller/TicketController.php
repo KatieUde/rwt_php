@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -78,23 +79,23 @@ class TicketController {
       $ticket_purchase = new TicketPurchase();
       // $ticket_purchase->setName();
       // $ticket_purchase->setEmail();
-      // $ticket_purchase->setAgeConfirm();
-      // $ticket_purchase->setMovie();
-      // $ticket_purchase->setShowtimes();
-      // $ticket_purchase->setTicketType();
+
+      $sql = "SELECT * FROM movies";
+      $movie = $app['db']->fetchAssoc($sql);
 
 
       $form = $app['form.factory']->createBuilder(FormType::class, $ticket_purchase)
-          ->add('name')
+          ->add('name', TextType::class)
           ->add('email')
           ->add('age_confirm')
           ->add('cc_number')
           ->add('cc_cvc')
           ->add('cc_exp')
           ->add('zip_code')
-          ->add('movie')
-          ->add('showtime')
-          ->add('ticketType')
+          ->add('movie', ChoiceType::class, array(
+          ))
+          ->add('showtime', ChoiceType::class)
+          ->add('ticket_type', ChoiceType::class)
 
           ->getForm();
 

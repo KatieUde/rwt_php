@@ -2,17 +2,29 @@
 
 {% block content %}
 
-<div>
+<div id="ticket-purchase-header">
   <h3>Purchase Movie Tickets</h3>
 </div>
   <br>
 
 <!-- FORM FOR NEW TICKET PURCHASE CREATION -->
-<div>
-  <form action="" method="post">
-    {{ form_widget(form) }}
-
-    <input type="submit" name="submit">Purchase Ticket</input>
+<div id="ticket-purchase-form">
+  <form class="form-horizontal col-sm-6" action="/tickets" method="post">
+      {{ form_row(form.name) }}
+      {{ form_row(form.email) }}
+      {{ form_row(form.age_confirm) }}
+      {{ form_row(form.cc_number) }}
+      {{ form_row(form.cc_cvc) }}
+      {{ form_row(form.cc_exp) }}
+      {{ form_row(form.zip_code) }}
+      {{ form_row(form.movie) }}
+      {{ form_row(form.showtime) }}
+      {{ form_row(form.ticket_type) }}
+        <div class="form-group">
+          <div class="col-sm-offset-6 col-sm-5">
+        <button class="btn btn default" type="submit" name="submit">Purchase Ticket</button>
+      </div>
+    </div>
   </form>
 </div>
 
