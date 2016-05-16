@@ -22,8 +22,9 @@ $app->post('/movie/{id}/edit', 'RwTheatre\Controller\MovieController::postEditMo
 $app->delete('/movie/{id}/delete', 'RwTheatre\Controller\MovieController::deleteMovieAction');
 
 
-$app->get('/tickets', 'RwTheatre\Controller\TicketController::getTicketAction');
-$app->post('/tickets', 'RwTheatre\Controller\TicketController::postTicketAction');
+// $app->get('/tickets', 'RwTheatre\Controller\TicketController::getTicketAction');
+// $app->post('/tickets', 'RwTheatre\Controller\TicketController::postTicketAction');
+$app->match('/tickets', 'RwTheatre\Controller\TicketController::makeTicketPurchase');
 
 $app->get('/ticket_details', 'RwTheatre\Controller\TicketController::getTicketDetailsAction');
 $app->post('/ticket_details', 'RwTheatre\Controller\TicketController::addTicketDetailsAction');

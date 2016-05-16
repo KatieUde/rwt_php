@@ -6,6 +6,8 @@ use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\VarDumperServiceProvider;
 use Silex\Provider\WebProfilerServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
+use Silex\Provider\LocaleServiceProvider;
+use Silex\Provider\TranslationServiceProvider;
 
 // include the prod configuration
 require __DIR__.'/prod.php';
@@ -16,6 +18,12 @@ $app['debug'] = true;
 // $dbconn = \pg_connect("host=localhost port=8888 dbname=rwtheatre");
 
 $app->register(new FormServiceProvider());
+
+$app->register(new TranslationServiceProvider(), array(
+  'translator.messages' => array(),
+));
+
+$app->register(new LocaleServiceProvider());
 
 $app->register(new VarDumperServiceProvider());
 

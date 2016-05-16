@@ -46,21 +46,40 @@ class MovieController {
       return $app['twig']->render('edit_movie.html.twig', array('movie' => $movie));
   }
 
-    public function postEditMovieAction(Request $request, Application $app) {
-      $movie = array(
-        'id' => $request->get('id'),
-        'movie_name' => $request->get('movie_name'),
-        'omdb_id' => $request->get('omdb_id'),
-        'omdb_poster' => $request->get('omdb_poster'),
-        'youtube' => $request->get('youtube'),
-        'playing_now' => $request->get('playing_now'),
-        'upcoming' => $request->get('upcoming'),
-        'rating' => $request->get('rating')
-      );
-      $app['db']->update('movie', $movie);
+    public function postEditMovieAction(Request $request, Application $app, $id) {
+      $sql = "SELECT * FROM movies WHERE id = ?";
+      $app['db']->fetchAssoc($sql, array((int) $id));
 
-    return $app['twig']->render('add_movies.html.twig');
+        $id = $request->get('id');
+        $movie_name = $request->get('movie_name');
+        $omdb_id = $request->get('omdb_id');
+        $omdb_poster = $request->get('omdb_poster');
+        $youtube = $request->get('youtube');
+        $playing_now = $request->get('playing_now');
+        $upcoming = $request->get('upcoming');
+        $rating = $request->get('rating');
+
+      $sql = "UPDATE movies SET movie_name = '$movie_name', omdb_id = '$omdb_id', omdb_poster = '$omdb_poster', youtube = '$youtube', playing_now = $playing_now, upcoming = $upcoming, rating = '$rating' WHERE id = $id";
+      $app['db']->executeUpdate($sql, array((int) $id));
+
+    return $app['twig']->render('add_movies.html.twig', array('movies' => $app['db']->fetchAll('SELECT * FROM movies')));
   }
+
+  //   public function postEditMovieAction(Request $request, Application $app) {
+  //     $movie = array(
+  //       'id' => $request->get('id'),
+  //       'movie_name' => $request->get('movie_name'),
+  //       'omdb_id' => $request->get('omdb_id'),
+  //       'omdb_poster' => $request->get('omdb_poster'),
+  //       'youtube' => $request->get('youtube'),
+  //       'playing_now' => $request->get('playing_now'),
+  //       'upcoming' => $request->get('upcoming'),
+  //       'rating' => $request->get('rating')
+  //     );
+  //     $app['db']->update('movie', $movie);
+  //
+  //   return $app['twig']->render('add_movies.html.twig');
+  // }
 
     public function deleteMovieAction(Request $request, Application $app, $id) {
       $sql = "DELETE FROM movies WHERE id = $id";

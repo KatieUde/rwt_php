@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TicketController {
@@ -54,8 +57,8 @@ class TicketController {
         $id = $request->get('id');
         $ticket_style = $request->get('ticket_style');
         $ticket_cost = $request->get('ticket_cost');
-        var_dump($ticket_style);
-        var_dump($ticket_cost);
+        // var_dump($ticket_style);
+        // var_dump($ticket_cost);
 
       $sql = "UPDATE ticket_details SET ticket_style = '$ticket_style' WHERE id = $id";
       $app['db']->executeUpdate($sql);
@@ -70,5 +73,40 @@ class TicketController {
     return $app['twig']->render('ticket_details.html.twig', array('ticket_details' => $app['db']->fetchAll('SELECT * FROM ticket_details')));
   }
 
+    public function makeTicketPurchase(Request $request, Application $app) {
+
+      $ticket_purchase = new TicketPurchase();
+      // $ticket_purchase->setName();
+      // $ticket_purchase->setEmail();
+      // $ticket_purchase->setAgeConfirm();
+      // $ticket_purchase->setMovie();
+      // $ticket_purchase->setShowtimes();
+      // $ticket_purchase->setTicketType();
+
+
+      $form = $app['form.factory']->createBuilder(FormType::class, $ticket_purchase)
+          ->add('name')
+          ->add('email')
+          ->add('age_confirm')
+          ->add('cc_number')
+          ->add('cc_cvc')
+          ->add('cc_exp')
+          ->add('zip_code')
+          ->add('movie')
+          ->add('showtime')
+          ->add('ticketType')
+
+          ->getForm();
+
+      $form->handleRequest($request);
+
+      if ($form->isSubmitted() && $form->isValid()) {
+
+          $app['db']->insert('ticket_purchases', $ticket_purchase);
+          return $app->redirect($this->generateURL('task_success'));
+        }
+
+          return $app['twig']->render('buy_tickets.html.twig', array('form' => $form->createView()));
+      }
 
 }
