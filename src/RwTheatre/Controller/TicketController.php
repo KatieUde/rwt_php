@@ -57,7 +57,7 @@ class TicketController {
         var_dump($ticket_style);
         var_dump($ticket_cost);
 
-      $sql = "UPDATE ticket_details SET ticket_style = $ticket_style, ticket_cost = $ticket_cost WHERE id = $id";
+      $sql = "UPDATE ticket_details SET ticket_style = '$ticket_style' WHERE id = $id";
       $app['db']->executeUpdate($sql);
 
     return $app['twig']->render('ticket_details.html.twig', array('ticket_details' => $app['db']->fetchAll('SELECT * FROM ticket_details')));
