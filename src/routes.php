@@ -39,3 +39,7 @@ $app->post('/viewing_room/{id}/edit', 'RwTheatre\Controller\ViewingController::e
 $app->get('/viewing_room/{id}/delete', 'RwTheatre\Controller\ViewingController::deleteViewingRoomAction');
 
 $app->get('/movie_times', 'RwTheatre\Controller\ViewingController::getViewingsAction');
+$app->post('/movie_times', 'RwTheatre\Controller\ViewingController::addViewingsAction');
+$app->get('/movie_times{id}/edit', 'RwTheatre\Controller\ViewingController::findViewingsAction');
+$app->post('/movie_times/{id}/edit', 'RwTheatre\Controller\ViewingController::editViewingsAction');
+$app->get('/movie_times/{id}/delete', 'RwTheatre\Controller\ViewingController::deleteViewingsAction');

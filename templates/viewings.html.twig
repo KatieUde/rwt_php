@@ -14,7 +14,6 @@
       <label for="auditorium" class="col-sm-2 col-sm-offset-2 control-label">Auditorium:</label>
         <div class="col-sm-5">
           <select class= "form-control">
-
             {% for viewing_room in viewing_rooms %}
               <option>{{viewing_room.room_number}}</option>
             {% endfor %}
@@ -24,21 +23,25 @@
     <div class="form-group">
       <label for="movie" class="col-sm-2 col-sm-offset-2 control-label">Movie:</label>
         <div class="col-sm-5">
-          <select class= "form-control"
-            <%= collection_select(:viewing, :movie_id, Movie.all, :id, :name, prompt: true) %>
+          <select class= "form-control">
+            {% for movie in movies %}
+              {% if movie.playing_now == true %}
+                  <option>{{movie.movie_name}}</option>
+              {% endif %}
+            {% endfor %}
           </select>
         </div>
       </div>
     <div class="form-group">
       <label for="movie_time" class="col-sm-2 col-sm-offset-2 control-label">Movie Time:</label>
         <div class='col-sm-5'>
-          <input type="time" class="form-control">
+          <input type="view_time" class="form-control">
         </div>
       </div>
     <div class="form-group">
       <label for="movie_date" class="col-sm-2 col-sm-offset-2 control-label">Movie Date:</label>
         <div class="col-sm-5">
-          <input type="date" class="form-control" name="">
+          <input type="view_date" class="form-control" name="">
         </div>
       </div>
     <div class="form-group">

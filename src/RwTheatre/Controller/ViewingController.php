@@ -58,8 +58,22 @@ class ViewingController {
 
     public function getViewingsAction(Request $request, Application $app) {
 
-    return $app['twig']->render('viewings.html.twig', array('viewing_rooms' => $app['db']->fetchAll('SELECT * FROM viewing_rooms')));
+      $viewing_rooms = $app['db']->fetchAll('SELECT * FROM viewing_rooms');
+      $movies = $app['db']->fetchAll('SELECT * FROM movies');
+
+    return $app['twig']->render('viewings.html.twig', array('viewing_rooms' => $viewing_rooms, 'movies' => $movies));
   }
 
+    public function addViewingsAction(Request $request, Application $app) {
+      $viewing = array(
+        'movie_id' => $request->get('movie_id'),
+        'viewing_id' => $request->get('viewing_id'),
+        'view_time' => $request->get('view_time'),
+        'view_date' => $request->get('view_date')
+      );
+      $app['db']->insert('viewings', $viewing);
+
+    return $app['twig']->render('viewings.html.twig', array('viewings' => $app['db']->fetchAll('SELECT * FROM viewings')));
+  }
 
 }

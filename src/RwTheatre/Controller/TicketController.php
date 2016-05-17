@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -80,22 +81,48 @@ class TicketController {
       // $ticket_purchase->setName();
       // $ticket_purchase->setEmail();
 
-      $sql = "SELECT * FROM movies";
-      $movie = $app['db']->fetchAssoc($sql);
+      $movies = $app['db']->fetchAll('SELECT * FROM movies WHERE playing_now = "1"');
+      $movie_names = array();
+      $movie_ids = array();
+        foreach($movies as $movie) {
+          array_push($movie_names, $movie['movie_name']);
+          array_push($movie_ids, $movie['id']);
+        }
+        var_dump($movie_names);
+        var_dump($movie_ids);
+        // $movie_list = implode(", ", $movie_names);
+        // echo ($movie_list);
 
+        $tickets = $app['db']->fetchAll('SELECT * FROM ticket_details');
+        $ticket_types = array();
+        $ticket_ids = array();
+          foreach ($tickets as $ticket) {
+              array_push($ticket_types, $ticket['ticket_style']);
+              array_push($ticket_ids, $ticket['id']);
+          }
+          // $ticket_list = implode(", ", $ticket_types);
+          // var_dump($ticket_list);
 
       $form = $app['form.factory']->createBuilder(FormType::class, $ticket_purchase)
           ->add('name', TextType::class)
-          ->add('email')
+          ->add('email', EmailType::class)
           ->add('age_confirm')
           ->add('cc_number')
           ->add('cc_cvc')
           ->add('cc_exp')
           ->add('zip_code')
-          ->add('movie', ChoiceType::class, array(
-          ))
+          ->add('movie', ChoiceType::class, array('choices' => array(
+              $movie_names[0] => $movie_ids[0],
+              $movie_names[1] => $movie_ids[1],
+              $movie_names[2] => $movie_ids[2],
+              $movie_names[3] => $movie_ids[3]
+          )))
           ->add('showtime', ChoiceType::class)
-          ->add('ticket_type', ChoiceType::class)
+          ->add('ticket_type', ChoiceType::class, array('choices' => array(
+              $ticket_types[0] => $ticket_ids[0],
+              $ticket_types[1] => $ticket_ids[1],
+              $ticket_types[2] => $ticket_ids[2]
+          )))
 
           ->getForm();
 
